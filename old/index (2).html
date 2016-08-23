@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Skillfair</title>
+  <meta charset="utf-8" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body>
+  <header class="container">
+    <div class="row">
+      <h1 class="col-sm-8">Skillfair</h1>
+      <nav class="col-sm-4">
+        <p>newest</p>
+        <p>catalogue</p>
+        <p>contact</p>
+      </nav>
+    </div>
+  </header>
+  <!-- <section class="jumbotron"> -->
+    <div id="map" class="jumbotron"></div>
+		<!-- <script src="app.js"></script> -->
+		<script>
+			var map;
+			//Create a blank array for all listing markers
+			var markers = [];
+			function initMap() {
+				map = new google.maps.Map(document.getElementById('map'), {
+				center: {lat: 40.7413549, lng: -73.9980224},
+				zoom: 13
+				});
+			
+				var locations = [
+					{title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393} },
+					{title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
+					{title: 'Union Square Open Floor Plan', location: {lat: 40.7347862, lng: -73.9895759}},
+					{title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
+					{title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -73.0089934}},
+					{title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+				];
+			
+				var largeInfowindow = new google.maps.InfoWindow();
+				var bounds = new google.maps.LatLngBounds();
+
+				//Loop for creating all markers in array
+				for (var i = 0; i < locations.length; i++) {
+					//Get the position from the location array
+					var position = locations[i].location;
+					var title = locations[i].title;
+					//Create a marker per location and put into markers array
+					var marker = new google.maps.Marker({
+						map: map,
+						position: position;
+						title: title;
+						animation: google.maps.Animation.DROP,
+						id: i
+					});
+					//Push the marker to the array
+					markers.push(marker);
+					//Extend the boundaries based on added marker
+					bounds.extend(marker, position);
+					//Create click event for the marker, open infowindow
+					marker.addListener('click', function() {
+						populateInfoWindow(this, largeInfowindow);
+					});
+				}
+				map.fitBounds(bounds);
+			}
+				//This function populates the infowindow based on its data when marker is clicked. 
+				//We'll only allow one infowindow to be open at once. 
+				function populateInfoWindow(marker, infowindow) {
+					//Check that clicked infowindow is not already opened
+					if (infowindow.marker != marker) {
+						infowindow.marker = marker;
+						infowindow.setContent('<div>' + marker.title + '</div>');
+						infowindow.open(map, marker);
+						//Make sure the marker property is cleared if the infowindow is closed
+						infowindow.addListener('closeclick', function() {
+							infowindow.setMarker(null);
+						});
+					}
+				}
+				
+		</script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuPPNPhGqcbxGGYtx1O23w2xDHRwhaJ3M&callback=initMap"
+		async defer>
+		</script>
+
+  <!-- </section> -->
+  <section class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <p>kitchen</p>
+        <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/kitchen.jpg">
+      </div>
+      <div class="col-sm-6">
+        <p>woodwork</p>
+        <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/woodwork.jpg">
+      </div>
+      <div class="col-sm-6">
+        <p>gifts</p>
+        <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/gifts.jpg">
+      </div>
+      <div class="col-sm-6">
+        <p>antiques</p>
+        <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/antique.jpg">
+      </div>
+    </div>
+    <div class="row text-center">
+      <a class="btn btn-secondary" href="#">View Complete Catalogue</a>
+    </div>
+  </section>
+  <footer class="container">
+    <div class="row">
+      <p class="col-sm-4">&copy; 2016 Skillfair</p>
+      <ul class="col-sm-8">
+        <li class="col-sm-1">
+          <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/twitter.svg">
+        </li>
+        <li class="col-sm-1">
+          <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/facebook.svg">
+        </li>
+        <li class="col-sm-1">
+          <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/instagram.svg">
+        </li>
+        <li class="col-sm-1">
+          <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/medium.svg">
+        </li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+
+</html>
