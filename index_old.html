@@ -1,23 +1,29 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>TATU</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <style>
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-      #map {
-        height: 100%;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="map"></div>
-<script>
+<head>
+  <title>Skillfair</title>
+  <meta charset="utf-8" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+
+  <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="./css/main.css">
+</head>
+
+<body>
+  <header class="container">
+    <div class="row">
+      <h1 class="col-sm-8">Skillfair</h1>
+      <nav class="col-sm-4">
+        <p>newest</p>
+        <p>catalogue</p>
+        <p>contact</p>
+      </nav>
+    </div>
+  </header>
+  <!-- <section class="jumbotron"> -->
+    <div id="map" class="jumbotron"></div>
+		<!-- <script src="app.js"></script> -->
+		<script>
       var map;
       // Create a new blank array for all the listing markers.
       var markers = [];
@@ -58,7 +64,7 @@
             title: title,
             animation: google.maps.Animation.DROP,
             id: i,
-			icon: './icons/tatu2.png'
+			icon: './icons/fair-stand.png'
           });
           // Push the marker to our array of markers.
           markers.push(marker);
@@ -90,5 +96,51 @@
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuPPNPhGqcbxGGYtx1O23w2xDHRwhaJ3M&callback=initMap"
 		async defer>
 		</script>
-  </body>
+
+  <!-- </section> -->
+  <section class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <p>kitchen</p>
+        <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/kitchen.jpg">
+      </div>
+      <div class="col-sm-6">
+        <p>woodwork</p>
+        <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/woodwork.jpg">
+      </div>
+      <div class="col-sm-6">
+        <p>gifts</p>
+        <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/gifts.jpg">
+      </div>
+      <div class="col-sm-6">
+        <p>antiques</p>
+        <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/antique.jpg">
+      </div>
+    </div>
+    <div class="row text-center">
+      <a class="btn btn-secondary" href="#">View Complete Catalogue</a>
+    </div>
+  </section>
+  <footer class="container">
+    <div class="row">
+      <p class="col-sm-4">&copy; 2016 Skillfair</p>
+      <ul class="col-sm-8">
+        <li class="col-sm-1">
+          <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/twitter.svg">
+        </li>
+        <li class="col-sm-1">
+          <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/facebook.svg">
+        </li>
+        <li class="col-sm-1">
+          <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/instagram.svg">
+        </li>
+        <li class="col-sm-1">
+          <img src="https://s3.amazonaws.com/codecademy-content/projects/make-a-website/lesson-4/medium.svg">
+        </li>
+      </ul>
+    </div>
+  </footer>
+
+</body>
+
 </html>
