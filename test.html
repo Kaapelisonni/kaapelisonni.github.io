@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Simple Map</title>
+    <title>TATU</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
@@ -17,16 +17,78 @@
   </head>
   <body>
     <div id="map"></div>
-    <script>
+<script>
       var map;
+      // Create a new blank array for all the listing markers.
+      var markers = [];
       function initMap() {
+        // Constructor creates a new map - only center and zoom are required.
         map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -34.397, lng: 150.644},
-          zoom: 8
+          center: {lat: 40.7413549, lng: -73.9980244},
+          zoom: 13,
+		  mapTypeControl: false
         });
+        // These are the real estate listings that will be shown to the user.
+        // Normally we'd have these in a database instead.
+        var locations = [
+          {title: 'Ankkalampi', location: {lat: 62.498528, lng: 27.786986}},
+          {title: 'Alapiha', location: {lat: 62.495857, lng: 27.796045}},
+          {title: 'Mutka', location: {lat: 62.491599, lng: 27.793161}},
+          {title: 'Kivelä', location: {lat: 62.490876, lng: 27.795487}},
+          {title: 'Kemer', location: {lat: 62.490593, lng: 27.791356}},
+          {title: 'Anneli Ojan pippeli-ikkuna', location: {lat: 62.489960, lng: 27.786171}},
+		  {title: 'Pesiskenttä', location: {lat: 62.487807, lng: 27.781370}},
+		  {title: 'Uikki', location: {lat: 62.484488, lng: 27.780893}},
+		  {title: 'Hautausmaa', location: {lat: 62.493272, lng: 27.779317}},
+		  {title: 'Kauppilanmäki', location: {lat: 62.497875, lng: 27.776661}},
+		  {title: 'Leikkikenttä', location: {lat: 62.504337, lng: 27.773789}},
+		  {title: 'Alakerta', location: {lat: 62.503551, lng: 27.779395}}
+        ];
+        var largeInfowindow = new google.maps.InfoWindow();
+        var bounds = new google.maps.LatLngBounds();
+        // The following group uses the location array to create an array of markers on initialize.
+        for (var i = 0; i < locations.length; i++) {
+          // Get the position from the location array.
+          var position = locations[i].location;
+          var title = locations[i].title;
+          // Create a marker per location, and put into markers array.
+          var marker = new google.maps.Marker({
+            map: map,
+            position: position,
+            title: title,
+            animation: google.maps.Animation.DROP,
+            id: i,
+			icon: './icons/tatu.jpg'
+          });
+          // Push the marker to our array of markers.
+          markers.push(marker);
+          // Create an onclick event to open an infowindow at each marker.
+          marker.addListener('click', function() {
+            populateInfoWindow(this, largeInfowindow);
+          });
+          bounds.extend(markers[i].position);
+        }
+        // Extend the boundaries of the map for each marker
+        map.fitBounds(bounds);
       }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuPPNPhGqcbxGGYtx1O23w2xDHRwhaJ3M&callback=initMap"
-    async defer></script>
+      // This function populates the infowindow when the marker is clicked. We'll only allow
+      // one infowindow which will open at the marker that is clicked, and populate based
+      // on that markers position.
+      function populateInfoWindow(marker, infowindow) {
+        // Check to make sure the infowindow is not already opened on this marker.
+        if (infowindow.marker != marker) {
+          infowindow.marker = marker;
+          infowindow.setContent('<div>' + marker.title + '</div>');
+          infowindow.open(map, marker);
+          // Make sure the marker property is cleared if the infowindow is closed.
+          infowindow.addListener('closeclick',function(){
+            infowindow.setMarker(null);
+          });
+        }
+      }
+		</script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuPPNPhGqcbxGGYtx1O23w2xDHRwhaJ3M&callback=initMap"
+		async defer>
+		</script>
   </body>
 </html>
