@@ -37,11 +37,12 @@
           {title: 'Kivelä', location: {lat: 62.490876, lng: 27.795487}},
           {title: 'Kemer', location: {lat: 62.490593, lng: 27.791356}},
           {title: 'Anneli Ojan pippeli-ikkuna', location: {lat: 62.489960, lng: 27.786171}},
+		  {title: 'Junapuisto', location: {lat: 62.489583, lng: 27.780635}},
 		  {title: 'Pesiskenttä', location: {lat: 62.487807, lng: 27.781370}},
 		  {title: 'Uikki', location: {lat: 62.484488, lng: 27.780893}},
 		  {title: 'Hautausmaa', location: {lat: 62.493272, lng: 27.779317}},
+		  {title: 'Kirjaston katto', location: {lat: 62.493728, lng: 27.789332}},
 		  {title: 'Kauppilanmäki', location: {lat: 62.497875, lng: 27.776661}},
-		  {title: 'Leikkikenttä', location: {lat: 62.504337, lng: 27.773789}},
 		  {title: 'Alakerta', location: {lat: 62.503551, lng: 27.779395}}
         ];
         var largeInfowindow = new google.maps.InfoWindow();
@@ -66,6 +67,9 @@
           marker.addListener('click', function() {
             populateInfoWindow(this, largeInfowindow);
           });
+		  marker.addListener('click', function() {
+		  toggleBounce(this);
+		  });
           bounds.extend(markers[i].position);
         }
         // Extend the boundaries of the map for each marker
@@ -86,6 +90,16 @@
           });
         }
       }
+	  
+	  function toggleBounce(marker) {
+        if (marker.getAnimation() !== null) {
+          marker.setAnimation(null);
+        } else {
+          marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
+      }
+
+	  
 		</script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuPPNPhGqcbxGGYtx1O23w2xDHRwhaJ3M&callback=initMap"
 		async defer>
