@@ -56,7 +56,7 @@
           var marker = new google.maps.Marker({
             map: map,
             position: position,
-            title: title,
+            //title: title,
             animation: google.maps.Animation.DROP,
             id: i,
 			icon: './icons/tatu3.png'
@@ -64,9 +64,9 @@
           // Push the marker to our array of markers.
           markers.push(marker);
           // Create an onclick event to open an infowindow at each marker.
-          marker.addListener('click', function() {
-            populateInfoWindow(this, largeInfowindow);
-          });
+          //marker.addListener('click', function() {
+          //  populateInfoWindow(this, largeInfowindow);
+          //});
 		  marker.addListener('click', function() {
 		  toggleBounce(this);
 		  });
