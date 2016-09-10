@@ -68,8 +68,6 @@
           //  populateInfoWindow(this, largeInfowindow);
           //});
 		  marker.addListener('click', function() {
-		  var audio = new Audio('./audio/sirmr.ogg');
-		  audio.play();
 		  toggleBounce(this);
 		  });
           bounds.extend(markers[i].position);
@@ -98,6 +96,8 @@
           marker.setAnimation(null);
         } else {
           marker.setAnimation(google.maps.Animation.BOUNCE);
+		  var audio = new Audio('./audio/sirmr.ogg');
+		  audio.play();
         }
       }
 
