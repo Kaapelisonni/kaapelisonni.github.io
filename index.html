@@ -19,6 +19,11 @@
     <div id="map"></div>
 <script>
       var map;
+	  var audio = new Audio('./audio/sirmr.ogg');
+	  
+	  <audio id="myAudio" src="./audio/sirmr.ogg" preload="auto">
+	  </audio>
+	  
       // Create a new blank array for all the listing markers.
       var markers = [];
       function initMap() {
@@ -69,7 +74,27 @@
           //});
 		  marker.addListener('click', function() {
 		  toggleBounce(this);
-		  });
+		  togglePlay();
+		  //var audio = new Audio('./audio/sirmr.ogg');
+			//audio.play();
+		  //});
+		  var myAudio = document.getElementById("myAudio");
+		  var isPlaying = false;
+
+		  function togglePlay() {
+		  if (isPlaying) {
+			myAudio.pause()
+			}	else {
+			myAudio.play();
+			}
+		  };
+			myAudio.onplaying = function() {
+			isPlaying = true;
+			};
+			myAudio.onpause = function() {
+			isPlaying = false;
+		  };
+		  
           bounds.extend(markers[i].position);
         }
         // Extend the boundaries of the map for each marker
@@ -103,6 +128,7 @@
 		</script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAuPPNPhGqcbxGGYtx1O23w2xDHRwhaJ3M&callback=initMap"
 		async defer>
-		</script>
+		</script>		
+		
   </body>
 </html>
